@@ -1,4 +1,16 @@
 <?php
+/**
+ * Template for code conversation
+ *
+ * @link
+ * @since      1.0.0
+ * @package    GPT_AI_SAAS
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly
+}
+
 $user = wp_get_current_user();
 include_once WPAISAAS_PLUGIN_DIR_PATH . 'templates/partials/head.php';
 ?>
@@ -45,18 +57,15 @@ include_once WPAISAAS_PLUGIN_DIR_PATH . 'templates/partials/head.php';
                     <div class="col-12 col-xl-6">
                         <div class="card h-100">
                             <div class="card-header pb-0 p-3">
-                                <h6 class="mb-0"><?php esc_html_e('Platform Settings', 'wpaisaas'); ?></h6>
+                                <h6 class="mb-0"><?php esc_html_e('Platform Settings', 'gpt-ai-saas'); ?></h6>
                             </div>
                             <div class="card-body p-3">
-                                <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4"><?php esc_html_e('Current Plan', 'wpaisaas'); ?></h6>
-                                <p><?php
-                                    $current_plan = wpaisaas_get_role_name();
-                                    echo esc_html(
-                                        sprintf( 'Your current plan is: %s', 'wpaisaas' ,
-                                            $current_plan
-                                        )
-                                    );
-                                    ?>
+                                <h6 class="text-uppercase text-body text-xs font-weight-bolder mt-4"><?php esc_html_e('Current Plan', 'gpt-ai-saas'); ?></h6>
+                                <p>
+	                                <?php
+	                                $current_plan = wpaisaas_get_role_name();
+	                                echo esc_html__( 'Your current plan is:', 'gpt-ai-saas' ). ' '. esc_html( $current_plan );
+	                                ?>
                                 </p>
                                 <?php
                                 if (!empty($user->roles)) {
@@ -64,19 +73,19 @@ include_once WPAISAAS_PLUGIN_DIR_PATH . 'templates/partials/head.php';
                                         printf(
                                             '<a class="btn bg-gradient-primary mt-3 w-100" href="%s">%s</a>',
                                             esc_url(wpaisaas_get_page_link('pricing')),
-                                            esc_html__('Upgrade to pro', 'wpaisaas')
+                                            esc_html__('Upgrade to pro', 'gpt-ai-saas')
                                         );
                                     } else {
                                         printf(
                                             '<a class="btn bg-gradient-primary mt-3 w-100" href="%s">%s</a>',
                                             esc_url(wpaisaas_get_page_link('pricing')),
-                                            esc_html__('Review your plan!!!', 'wpaisaas')
+                                            esc_html__('Review your plan!!!', 'gpt-ai-saas')
                                         );
                                     }
                                 }
                                 ?>
                                 <hr class="horizontal"/>
-                                <h6 class="text-uppercase text-body text-xs font-weight-bolder"><?php esc_html_e('Account', 'wpaisaas'); ?></h6>
+                                <h6 class="text-uppercase text-body text-xs font-weight-bolder"><?php esc_html_e('Account', 'gpt-ai-saas'); ?></h6>
                                 <ul class="list-group">
                                     <li class="list-group-item border-0 px-0">
                                         <div class="form-check form-switch ps-0">
@@ -84,7 +93,7 @@ include_once WPAISAAS_PLUGIN_DIR_PATH . 'templates/partials/head.php';
                                                    id="flexSwitchCheckDefault"
                                                    checked>
                                             <label class="form-check-label text-body ms-3 text-truncate w-80 mb-0"
-                                                   for="flexSwitchCheckDefault"><?php esc_html_e('Email me when new update is released.', 'wpaisaas'); ?></label>
+                                                   for="flexSwitchCheckDefault"><?php esc_html_e('Email me when new update is released.', 'gpt-ai-saas'); ?></label>
                                         </div>
                                     </li>
                                 </ul>
@@ -98,10 +107,10 @@ include_once WPAISAAS_PLUGIN_DIR_PATH . 'templates/partials/head.php';
                             <div class="card-header pb-0 p-3">
                                 <div class="row">
                                     <div class="col-md-8 d-flex align-items-center">
-                                        <h6 class="mb-0"><?php esc_html_e('Profile Information', 'wpaisaas'); ?></h6>
+                                        <h6 class="mb-0"><?php esc_html_e('Profile Information', 'gpt-ai-saas'); ?></h6>
                                     </div>
                                     <div class="col-md-4 text-end">
-                                        <a href="javascript:;">
+                                        <a href="javascript:">
                                             <i class="fas fa-user-edit text-secondary text-sm" data-bs-toggle="tooltip"
                                                data-bs-placement="top" title="Edit Profile"></i>
                                         </a>
@@ -111,16 +120,13 @@ include_once WPAISAAS_PLUGIN_DIR_PATH . 'templates/partials/head.php';
                             <div class="card-body p-3">
                                 <ul class="list-group">
                                     <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong
-                                                class="text-dark"><?php esc_html_e('Full Name:', 'wpaisaas'); ?></strong><?php echo esc_html($user->display_name); ?>
+                                                class="text-dark"><?php esc_html_e('Full Name:', 'gpt-ai-saas'); ?></strong><?php echo esc_html($user->display_name); ?>
                                     </li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong
-                                                class="text-dark"><?php esc_html_e('Email:', 'wpaisaas'); ?></strong><?php echo esc_html($user->user_email); ?>
+                                                class="text-dark"><?php esc_html_e('Email:', 'gpt-ai-saas'); ?></strong><?php echo esc_html($user->user_email); ?>
                                     </li>
                                     <li class="list-group-item border-0 ps-0 text-sm"><strong
-                                                class="text-dark"><?php esc_html_e('Registered:', 'wpaisaas'); ?></strong><?php echo esc_html($user->user_registered); ?>
-                                    </li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong
-                                                class="text-dark"><?php esc_html_e('IP:', 'wpaisaas'); ?></strong><?php echo esc_url(wpaisaas_get_user_ip_address()); ?>
+                                                class="text-dark"><?php esc_html_e('Registered:', 'gpt-ai-saas'); ?></strong><?php echo esc_html($user->user_registered); ?>
                                     </li>
                                 </ul>
                             </div>
@@ -131,14 +137,5 @@ include_once WPAISAAS_PLUGIN_DIR_PATH . 'templates/partials/head.php';
             <?php
         }
         ?>
-
     </main>
-
-    <!--   Core JS Files   -->
-    <script src="<?php echo esc_url(WPAISAAS_PLUGIN_DIR_URL) . "assets/js/core/popper.min.js" ?>"></script>
-    <script src="<?php echo esc_url(WPAISAAS_PLUGIN_DIR_URL) . "assets/js/core/bootstrap.min.js" ?>"></script>
-    <script src="<?php echo esc_url(WPAISAAS_PLUGIN_DIR_URL) . "assets/js/plugins/perfect-scrollbar.min.js" ?>"></script>
-    <script src="<?php echo esc_url(WPAISAAS_PLUGIN_DIR_URL) . "assets/js/plugins/smooth-scrollbar.min.js" ?>"></script>
-    <script src="<?php echo esc_url(WPAISAAS_PLUGIN_DIR_URL) . "assets/js/toastify.min.js"; ?>"></script>
-
 <?php include_once WPAISAAS_PLUGIN_DIR_PATH . 'templates/partials/footer.php'; ?>

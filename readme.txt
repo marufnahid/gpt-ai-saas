@@ -1,27 +1,47 @@
-=== GPT AI SaaS – AI Based SaaS for AI Writer, Content Generator & AI Assistant by ChatGPT, OpenAI | Generate Content with 20X Speed ===
+=== GPT AI SaaS – AI Based SaaS for AI Writer, Content Generator & AI Assistant Powered by ChatGPT, OpenAI | Generate Content with 20X Speed ===
 Contributors: marufnahid
-Donate link: https://marufnahid.me/donate/
 Tags: AI-saas, gpt4, ChatGPT, OpenAI, Content generation
 Requires at least: 5.6
 Tested up to: 6.5
-Stable tag: 1.0.0
+Stable tag: 1.3.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Turn WordPress into a SaaS hub with OpenAI and OCR integration. Power up your websites with AI capabilities
+Turn WordPress into a SaaS hub with OpenAI integration. Power up your websites with AI capabilities
 
 == Description ==
 
-Best AI SaaS for integrating to your existing WordPress Website. You can extend your website features with the power of ChatGPT. Most People need ChatGPT for text generation , Image generation, Text to Speech and Speech To Text conversion but no such platform. With one plugin you can do all the things.
+Experience a new era of content creation with GPT AI SaaS, the ultimate AI-powered content generation and writing assistant plugin for WordPress. Harnessing the advanced capabilities of OpenAI models such as ChatGPT, GPT-3.5, GPT-4, and DaVinci, this plugin transforms your WordPress site into a powerhouse of high-quality, engaging content. Whether you need blog posts, code snippets, hashtags, ad details, or more, GPT AI SaaS delivers effortlessly.
 
-Easily build a SaaS website with the pre-made templates. With most advanced algorithms and models like gpt-4/gpt-3.5 you can make a saas platform that works with Woocommerce and Others core plugin and themes.
+### Features
+
+- **Effortless Content Creation**: Transform your ideas into long-form blog posts, social media content, marketing copy, email content, product descriptions, and more within minutes.
+- **Seamless Editor Integration**: Enjoy full compatibility with Gutenberg Editor, Classic Editor, Elementor Page Builder, and WooCommerce, making your writing process smoother and more efficient.
+- **Enhanced SEO Optimization**: Boost your content's search engine performance with seamless integration with top SEO plugins like Rank Math and Yoast SEO.
+- **Advanced Bulk Post Generator**: Save time and effort by generating multiple blog posts at once with our sophisticated bulk post generator.
+- **Monetize with Ease**: The Pro version supports user subscriptions and integrates with the Stripe payment gateway, offering a simple solution to monetize your content.
+- **Reliable and Fast**: Built for speed and reliability, GPT AI SaaS outperforms other plugins, delivering accurate results faster than ever before.
+
+Say goodbye to the hassle of brainstorming content ideas, spending hours on research, and staring at a blank screen. GPT AI SaaS leverages cutting-edge AI technology to handle all your content creation needs. From writing comprehensive articles and crafting marketing copy to generating social media posts and detailed product descriptions, GPT AI SaaS is your all-in-one solution for efficient and high-quality content creation.
+
+### Official Site
+
+Visit our [Official Site](https://gptaisaas.rf.gd/) for more information, detailed documentation, and support.
+
+### Public Roadmap
+
+Check out our [Public Roadmap](https://gptaisaas.rf.gd/roadmap) to see upcoming features and updates.
+
+### Get Pro Version
+
+Unlock the full potential of GPT AI SaaS with our [Pro Version](https://codecanyon.net/user/themesvro/portfolio), featuring advanced capabilities, priority support, and exclusive access to new features.
 
 ## Core Features:
 
 * No Monthly Subscription Required
 * No Limit on Content Generation
-* 8+ Pre-Made Templates
+* 47+ Pre-Made Templates
 * No Coding skill required
 * AI Text Completion
 * AI Code Correction and Code generation
@@ -61,6 +81,7 @@ Easily build a SaaS website with the pre-made templates. With most advanced algo
 * gpt-3.5-turbo-instruct (Recommended)
 * gpt-4
 * gpt-4-32k
+
 # Image
 * dell-e-2
 * dell-e-3
@@ -150,7 +171,7 @@ WP AI SaaS allows users to use their own OpenAI API key to connect. This means t
 
 To put this into perspective, let’s say you need to create 100 blog posts, each containing 1000 words. With other AI content creation services, this could cost you anywhere from $290 to $590 or more, depending on the platform and the quality of the content generated.
 
-With WP AI SaaS, you can generate the same amount of content for just $2.50, which is a huge cost-saving. Plus, you don’t need to pay for monthly subscriptions with word limits. Thus you can earn more by giving subsubscription plans to your saas users.
+With WP AI SaaS, you can generate the same amount of content for just $2.50, which is a huge cost-saving. Plus, you don’t need to pay for monthly subscriptions with word limits. Thus, you can earn more by giving subscription plans to your saas users.
 
 = Are there any limits on content generation with WP AI SaaS? =
 
@@ -176,6 +197,25 @@ Yes, you can feed the AI using your own data to generate highly targeted content
 
 No, you don’t have to purchase any monthly or yearly subscription to use WP AI SaaS.
 
+## Third-Party Services
+
+### 1. GitHub Buttons
+
+- **Description**: The plugin uses GitHub Buttons to display GitHub-related buttons in the footer.
+- **Usage**: This script is loaded asynchronously and deferred in the footer.
+- **Service URL**: [GitHub Buttons](https://buttons.github.io/)
+- **Terms of Use**: [GitHub Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service)
+- **Privacy Policy**: [GitHub Privacy Statement](https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement)
+
+### 3. FontAwesome Kit
+
+- **Description**: The plugin uses FontAwesome Kit to include scalable vector icons and social logos.
+- **Usage**: This script is loaded to provide iconography within the plugin.
+- **Service URL**: [FontAwesome](https://fontawesome.com/)
+- **Terms of Use**: [FontAwesome Terms of Service](https://fontawesome.com/legal/terms-of-service)
+- **Privacy Policy**: [FontAwesome Privacy Policy](https://fontawesome.com/legal/privacy)
+
+
 
 == Screenshots ==
 
@@ -187,7 +227,22 @@ No, you don’t have to purchase any monthly or yearly subscription to use WP AI
 6. Profile Page
 
 == Changelog ==
-= 1.0.1 =
+
+= 1.3.0 =
+# Fixed some bugs
+# Added some new features
+# Code optimization
+# Cross-checked with latest WordPress version
+# Check with live server
+# Styling Issue fix
+# More attractive UI
+
+= 1.2.0 =
+# Fixed some bugs
+# Deleted some code
+# Donation linked removed
+
+= 1.1.0 =
 # Fixed some bugs
 # Added some new features
 # Code optimization

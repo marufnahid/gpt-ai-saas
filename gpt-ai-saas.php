@@ -3,12 +3,12 @@
  * Plugin Name:       GPT AI SaaS
  * Plugin URI:        https://github.com/marufnahid/gpt-ai-saas
  * Description:       GPT AI SaaS revolutionizes content creation for WordPress websites by integrating cutting-edge AI models like GPT-3 and GPT-4. With this powerful plugin, generating text, content, images, and performing OCR tasks becomes faster upto 20x and more affordable (upto 50x) than ever before.
- * Version:           1.0.0
+ * Version:           1.3.0
  * Author:            marufnahid
  * Author URI:        https://github.com/marufnahid
  * License:           GPLv2 or later
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       wpaisaas
+ * Text Domain:       gpt-ai-saas
  * Domain Path:       /languages
  * Requires PHP:      7.4
  * Requires at least: 5.6
@@ -25,13 +25,11 @@ if (!defined('WPAISAAS_PLUGIN_DIR_PATH')) {
 }
 
 // Load the settings library.
-if (file_exists(WPAISAAS_PLUGIN_DIR_PATH . 'includes/framework/codestar-framework.php')) {
-    require_once WPAISAAS_PLUGIN_DIR_PATH . 'includes/framework/codestar-framework.php';
-    require_once WPAISAAS_PLUGIN_DIR_PATH . 'includes/options.php';
+if (file_exists(WPAISAAS_PLUGIN_DIR_PATH . 'includes/admin-options.php')) {
+    require_once WPAISAAS_PLUGIN_DIR_PATH . 'includes/admin-options.php';
 }
 if (file_exists(WPAISAAS_PLUGIN_DIR_PATH . 'includes/functions.php')) {
     require_once WPAISAAS_PLUGIN_DIR_PATH . 'includes/functions.php';
-    require_once WPAISAAS_PLUGIN_DIR_PATH . 'includes/stripe/create-checkout-session.php';
 }
 /**
  * Get the full path of the template file location.
@@ -53,25 +51,85 @@ function wpaisaas_get_template_file($template_file_name)
  */
 function wpaisaas_load_scripts()
 {
-    wp_enqueue_style('wpaisaas-style', WPAISAAS_PLUGIN_DIR_URL . 'assets/css/wpaisaas.css', array(), '1.0.0', 'all');
+	$pluginUrl = plugin_dir_url(__FILE__);
+	$version = '1.3.0';
+
+	wp_register_style('wpaisaas-google-fonts', '//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700',[], $version);
+    wp_register_style('wpaisaas-nucleo-icons', $pluginUrl . 'assets/css/nucleo-icons.css', [], $version);
+	wp_register_style('wpaisaas-nucleo-svg', $pluginUrl . 'assets/css/nucleo-svg.css', [], $version);
+	wp_register_style('wpaisaas-toastify', $pluginUrl . 'assets/css/toastify.min.css', [], $version);
+	wp_register_style('wpaisaas-dashboard', $pluginUrl . 'assets/css/dashboard.css', [], $version);
+	wp_register_style('wpaisaas-style', $pluginUrl . 'assets/css/wpaisaas.css', [], $version);
+
+
+    wp_enqueue_style('wpaisaas-google-fonts');
+    wp_enqueue_style('wpaisaas-nucleo-icons');
+    wp_enqueue_style('wpaisaas-nucleo-svg');
+    wp_enqueue_style('wpaisaas-toastify');
+    wp_enqueue_style('wpaisaas-dashboard');
+    wp_enqueue_style('wpaisaas-style');
+
+
     if (!wp_script_is('jquery', 'enqueued')) {
         wp_enqueue_script('jquery');
     }
-    wp_enqueue_script('wpaisaas-script', WPAISAAS_PLUGIN_DIR_URL . 'assets/js/wpaisaas.js', array('jquery'), null, true);
 
-    // Localize the script with the AJAX URL
+	wp_register_script('wpaisaas-fontawesome-kit', $pluginUrl . 'assets/js/plugins/fontawesome-kit.js', [], $version, false);
+	wp_register_script('wpaisaas-popper', $pluginUrl . 'assets/js/core/popper.min.js', [], $version, true);
+	wp_register_script('wpaisaas-bootstrap', $pluginUrl . 'assets/js/core/bootstrap.min.js', [], $version, true);
+	wp_register_script('wpaisaas-scrollbar', $pluginUrl . 'assets/js/plugins/perfect-scrollbar.min.js', [], $version, true);
+	wp_register_script('wpaisaas-smooth-scrollbar', $pluginUrl . 'assets/js/plugins/smooth-scrollbar.min.js', [], $version, true);
+	wp_register_script('wpaisaas-toastify', $pluginUrl . 'assets/js/plugins/toastify.min.js', [], $version, true);
+	wp_register_script('wpaisaas-button', $pluginUrl . 'assets/js/plugins/github-buttons.js', [], $version, true);
+	wp_register_script('wpaisaas-dashboard', $pluginUrl . 'assets/js/dashboard.js', [], $version, true);
+    wp_register_script('wpaisaas-script', $pluginUrl . 'assets/js/wpaisaas.js', array('jquery'), $version, true);
+
+	wp_enqueue_script('wpaisaas-fontawesome-kit');
+	wp_enqueue_script('wpaisaas-popper');
+	wp_enqueue_script('wpaisaas-bootstrap');
+	wp_enqueue_script('wpaisaas-scrollbar');
+	wp_enqueue_script('wpaisaas-smooth-scrollbar');
+	wp_enqueue_script('wpaisaas-toastify');
+	wp_enqueue_script('wpaisaas-button');
+	wp_enqueue_script('wpaisaas-dashboard');
+	wp_enqueue_script('wpaisaas-script');
+
     wp_localize_script('wpaisaas-script', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
+
+	$inline_script = "
+            var win = navigator.platform.indexOf('Win') > -1;
+            if (win && document.querySelector('#sidenav-scrollbar')) {
+                var options = {
+                    damping: '0.5'
+                }
+                Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+            }
+        ";
+	wp_add_inline_script('wpaisaas-smooth-scrollbar', $inline_script);
+
 }
 
 add_action('wp_enqueue_scripts', 'wpaisaas_load_scripts', 9999);
 
 
-function wpaisaas_admin_scripts()
+function wpaisaas_admin_scripts($hook)
 {
-    wp_enqueue_style('wpaisaas-style', WPAISAAS_PLUGIN_DIR_URL . 'assets/css/wpaisaas-admin.css', array(), '1.0.0', 'all');
+    $version = '1.3.0';
+    if (!wp_script_is('jquery', 'enqueued')) {
+        wp_enqueue_script('jquery');
+    }
+    if ('toplevel_page_wpaisaas_admin_menu' === $hook) {
+	    wp_enqueue_style( 'wpaisaas-admin', plugin_dir_url( __FILE__ ) . 'assets/css/wpaisaas-admin.css', [], $version );
+	    wp_enqueue_script( 'wpaisaas-admin', plugin_dir_url( __FILE__ ) . 'assets/js/wpaisaas-admin.js', array( 'jquery' ), $version, true );
+    }
+
+	wp_localize_script('wpaisaas-admin', 'ajax_object', array('ajax_url' => admin_url('admin-ajax.php')));
 }
 
 add_action('admin_enqueue_scripts', 'wpaisaas_admin_scripts');
+
+
+
 
 /**
  * Get list of special pages conditional check
@@ -82,9 +140,9 @@ add_action('admin_enqueue_scripts', 'wpaisaas_admin_scripts');
 function wpaisaas_conditional_check_list()
 {
     return array(
-        'is_home' => __('Blog', 'wpaisaas'),
-        'is_archive' => __('Archive', 'wpaisaas'),
-        'is_search' => __('Search', 'wpaisaas'),
+        'is_home' => __('Blog', 'gpt-ai-saas'),
+        'is_archive' => __('Archive', 'gpt-ai-saas'),
+        'is_search' => __('Search', 'gpt-ai-saas'),
     );
 }
 
@@ -142,21 +200,11 @@ function wpaisaas_theme_page_templates($templates)
     $additional_templates = array();
     if ($license_type == 'free' && $license_status == 'active') {
         $additional_templates = array(
-            'dashboard-template.php' => __('AI Dashboard Page', 'wpaisaas'),
-            'conversation-template.php' => __('AI Conversation Page', 'wpaisaas'),
-            'hashtag-template.php' => __('AI Hashtag Page', 'wpaisaas'),
-            'code-template.php' => __('AI Code Page', 'wpaisaas'),
-            'profile-template.php' => __('AI Profile Page', 'wpaisaas'),
-        );
-    } elseif ($license_type == 'pro' && $license_status == 'active') {
-        $additional_templates = array(
-            'dashboard-template.php' => __('AI Dashboard Page', 'wpaisaas'),
-            'conversation-template.php' => __('AI Conversation Page', 'wpaisaas'),
-            'music-template.php' => __('AI Music Page', 'wpaisaas'),
-            'hashtag-template.php' => __('AI Hashtag Page', 'wpaisaas'),
-            'code-template.php' => __('AI Code Page', 'wpaisaas'),
-            'image-template.php' => __('AI Image Page', 'wpaisaas'),
-            'profile-template.php' => __('AI Profile Page', 'wpaisaas'),
+            'dashboard-template.php' => __('AI Dashboard Page', 'gpt-ai-saas'),
+            'conversation-template.php' => __('AI Conversation Page', 'gpt-ai-saas'),
+            'hashtag-template.php' => __('AI Hashtag Page', 'gpt-ai-saas'),
+            'code-template.php' => __('AI Code Page', 'gpt-ai-saas'),
+            'profile-template.php' => __('AI Profile Page', 'gpt-ai-saas'),
         );
     }
 
@@ -182,16 +230,6 @@ function wpaisaas_template_include($template)
             'hashtag-template.php',
             'code-template.php',
         );
-    } elseif ($license_type == 'pro' && $license_status == 'active') {
-        $template_files = array(
-            'dashboard-template.php',
-            'conversation-template.php',
-            'music-template.php',
-            'hashtag-template.php',
-            'code-template.php',
-            'image-template.php',
-            'profile-template.php',
-        );
     }
 
     foreach ($template_files as $template_file) {
@@ -212,7 +250,7 @@ function wpaisaas_admin_notices()
 {
     ?>
     <div class="notice notice-error is-dismissible">
-        <p><?php esc_html_e('WordPress AI SaaS plugin only works for WordPress version 5.6.0 or later.', 'wpaisaas'); ?></p>
+        <p><?php esc_html_e('WordPress AI SaaS plugin only works for WordPress version 5.6.0 or later.', 'gpt-ai-saas'); ?></p>
     </div>
     <?php
 }
@@ -222,7 +260,7 @@ function wpaisaas_activation_function()
     // Check if this is the first time plugin activation
     if (!get_option('wpaisaas_version')) {
         // First time activation, set default options
-        update_option('wpaisaas_version', '1.0.0');
+        update_option('wpaisaas_version', '1.3.0');
         update_option('wpaisaas_license_type', 'free');
         update_option('wpaisaas_license_email', '');
         update_option('wpaisaas_license_key', '');
@@ -233,13 +271,7 @@ function wpaisaas_activation_function()
         $current_license_type = get_option('wpaisaas_license_type');
         $current_license_status = get_option('wpaisaas_license_status');
 
-        // Perform necessary checks and updates here based on the current state
-        if ($current_version !== '1.0.0') {
-            // Perform updates for version 1.0.0
-            // Add your update code here
-        }
-
-        // Check if license type needs to be changed
+        // Check if a license type needs to be changed
         if ($current_license_type === 'pro' && $current_license_status !== 'active') {
             // If the current license type is pro but not active, revert to free
             update_option('wpaisaas_license_type', 'free');
@@ -259,23 +291,6 @@ register_activation_hook(__FILE__, 'wpaisaas_activation_function');
  */
 function wpaisaas_admin_setting()
 {
-    $prefix = "wpaisaas_";
-
-    if (class_exists('CSF')) {
-        $option = wpaisaas_get_option('pricing_table');
-        if (!empty($option)) {
-            add_role($prefix . strtolower(esc_html($option['plan_title_free'])), ucwords(esc_html($option['plan_title_free'])), array(
-                'read' => true,
-            ));
-            add_role($prefix . strtolower(esc_html($option['plan_title_pro'])), ucwords(esc_html($option['plan_title_pro'])), array(
-                'read' => true,
-            ));
-            add_role($prefix . strtolower(esc_html($option['plan_title_enterprise'])), ucwords(esc_html($option['plan_title_enterprise'])), array(
-                'read' => true,
-            ));
-        }
-    }
-
     // Check version compatibility. Bail early if minimum version requirements not met.
     if (version_compare(floatval(get_bloginfo('version')), '5.6.0', '<')) {
         add_action('admin_notices', 'wpaisaas_admin_notices');
@@ -288,39 +303,10 @@ function wpaisaas_admin_setting()
     // Hooked into template_include to modify the path of the current template before including it.
     add_filter('template_include', 'wpaisaas_template_include', 999);
 
-    // Hooked into body_class to modify the CSS classes.
-    add_filter('body_class', 'wpaisaas_filter_body_class', 999);
-
-    // Hooked into post_class to modify the CSS classes.
-    add_filter('post_class', 'wpaisaas_filter_post_class', 999);
 }
 
 add_action('init', 'wpaisaas_admin_setting');
-/**
- * Filters body tag element classes when page using the wpaisaas template.
- *
- * @param array $classes Raw body classes data passed to the filter.
- * @return array
- * @since 1.0.0
- */
-function wpaisaas_filter_body_class($classes)
-{
-    // Add your body class filter logic here.
-    return $classes;
-}
 
-/**
- * Filters post content wrapper CSS classes when page using the blanked template.
- *
- * @param array $classes Raw post classes data passed to the filter.
- * @return array
- * @since 1.0.0
- */
-function wpaisaas_filter_post_class($classes)
-{
-    // Add your post class filter logic here.
-    return $classes;
-}
 
 /**
  * Plugin bootstrap function
@@ -331,7 +317,7 @@ function wpaisaas_filter_post_class($classes)
 function wpaisaas_bootstrap()
 {
     // Load plugin textdomain.
-    load_plugin_textdomain('wpaisaas', false, basename(plugin_dir_path(__FILE__)) . '/languages');
+    load_plugin_textdomain('gpt-ai-saas', false, basename(plugin_dir_path(__FILE__)) . '/languages');
 }
 
 add_action('plugins_loaded', 'wpaisaas_bootstrap');

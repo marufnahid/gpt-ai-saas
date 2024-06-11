@@ -1,3 +1,6 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+?>
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
        id="sidenav-main">
     <div class="sidenav-header">
@@ -20,9 +23,9 @@
             } elseif ($site_icon_url) {
                 echo '<img src="' . esc_url($site_icon_url) . '" alt="' . esc_attr(get_bloginfo('name')) . '">';
             } else {
-                echo '<img src="' . esc_url(get_template_directory_uri() . 'assets/img/logo.svg') . '" alt="' . esc_attr(get_bloginfo('name')) . '">';
+                echo '<img src="' . esc_url(get_template_directory_uri() . 'assets/img/logo-color-white.svg') . '" alt="' . esc_attr(get_bloginfo('name')) . '">';
             }
-            echo '<span class="ms-1 font-weight-bold">' . esc_attr(get_bloginfo('name')) . '</span>';
+            echo '<span class="ms-1 font-weight-bold">' . esc_html(get_bloginfo('name')) . '</span>';
 
             ?>
 
@@ -47,7 +50,7 @@
             printf(
                 '<a class="btn bg-gradient-primary mt-3 w-100" href="%s">%s</a>',
                 esc_url($upgrade_link),
-                esc_html__('Upgrade to pro', 'wpaisaas')
+                esc_html__('Upgrade to pro', 'gpt-ai-saas')
             );
             echo '</div>';
         } elseif (in_array($user_role, ['administrator', 'editor', 'author'])) {
@@ -56,7 +59,7 @@
             printf(
                 '<a class="btn bg-gradient-primary mt-3 w-100" href="%s">%s</a>',
                 esc_url($admin_link),
-                esc_html__('Buy Now', 'wpaisaas')
+                esc_html__('Buy Now', 'gpt-ai-saas')
             );
             echo '</div>';
         }
@@ -65,7 +68,7 @@
         printf(
             '<a class="btn bg-gradient-primary mt-3 w-100" href="%s">%s</a>',
             esc_url(wp_login_url()),
-            esc_html__('Login', 'wpaisaas')
+            esc_html__('Login', 'gpt-ai-saas')
         );
         echo '</div>';
     }

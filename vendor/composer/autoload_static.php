@@ -7,10 +7,6 @@ namespace Composer\Autoload;
 class ComposerStaticInit6405029f70e23aeae5a145cd3210c21e
 {
     public static $prefixLengthsPsr4 = array (
-        'S' => 
-        array (
-            'Stripe\\' => 7,
-        ),
         'O' => 
         array (
             'Orhanerday\\OpenAi\\' => 18,
@@ -18,10 +14,6 @@ class ComposerStaticInit6405029f70e23aeae5a145cd3210c21e
     );
 
     public static $prefixDirsPsr4 = array (
-        'Stripe\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
-        ),
         'Orhanerday\\OpenAi\\' => 
         array (
             0 => __DIR__ . '/..' . '/orhanerday/open-ai/src',
